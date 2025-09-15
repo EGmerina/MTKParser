@@ -18,8 +18,12 @@ public class DialogWithToolbar extends JFrame {
         JScrollPane scrollPane = new JScrollPane(textArea);
 
         // Настройка layout и добавление компонентов
-        setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
+        setLayout(new GridLayout(2, 1));
+        add(scrollPane);
+
+        JTextPane textPane = new JTextPane();
+        textPane.setText("results here");
+        add(textPane);
 
         // Создание меню (опционально)
         createMenuBar();
@@ -29,18 +33,22 @@ public class DialogWithToolbar extends JFrame {
     private void createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
+        Font font = new Font("Arial", Font.PLAIN, 16); // Увеличиваем размер
+
         // Меню "Файл"
         JMenu fileMenu = new JMenu("File");
         JMenuItem newItem = new JMenuItem("New");
         JMenuItem openItem = new JMenuItem("Open");
         JMenuItem saveItem = new JMenuItem("Save");
 
+        fileMenu.setFont(font);
+
         fileMenu.add(newItem);
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
 
         // Меню "Правка"
-        JMenu editMenu = new JMenu("Text");
+        JMenu textMenu = new JMenu("Text");
         JMenuItem languageItem = new JMenuItem("Language");
         JMenuItem grammaticItem = new JMenuItem("Grammatic");
         JMenuItem classificationItem = new JMenuItem("Classification");
@@ -48,16 +56,23 @@ public class DialogWithToolbar extends JFrame {
         JMenuItem diagnosticsItem = new JMenuItem("Diagnostics");
         JMenuItem testingItem = new JMenuItem("Testing");
 
-        editMenu.add(languageItem);
-        editMenu.add(grammaticItem);
-        editMenu.add(classificationItem);
-        editMenu.add(analysisItem);
-        editMenu.add(diagnosticsItem);
-        editMenu.add(testingItem);
+        textMenu.setFont(font);
 
+        textMenu.add(languageItem);
+        textMenu.add(grammaticItem);
+        textMenu.add(classificationItem);
+        textMenu.add(analysisItem);
+        textMenu.add(diagnosticsItem);
+        textMenu.add(testingItem);
+
+
+        JMenu runItem = new JMenu("Run");
+
+        runItem.setFont(font);
 
         menuBar.add(fileMenu);
-        menuBar.add(editMenu);
+        menuBar.add(textMenu);
+        menuBar.add(runItem);
 
         setJMenuBar(menuBar);
     }
