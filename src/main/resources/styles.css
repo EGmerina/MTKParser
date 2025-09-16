@@ -1,0 +1,30 @@
+/* styles.css */
+
+/* Стиль для скрытия скроллбаров в ListView */
+.no-scroll-list .scroll-bar:vertical,
+.no-scroll-list .scroll-bar:horizontal {
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}
+
+/* Стиль для номеров строк */
+.line-numbers {
+    -fx-font-family: 'Monospaced';
+    -fx-font-size: 44px;
+    -fx-background-color: #f0f0f0;
+}
+
+.line-numbers .list-cell {
+    -fx-alignment: center-right;
+    -fx-padding: 0 5px 0 0;
+}
+
+.line-numbers .list-cell:selected {
+    -fx-background-color: #cce5ff;
+}
+
+/* Стиль для TextArea */
+.monospace-text {
+    -fx-font-family: 'Monospaced';
+    -fx-font-size: 30px;
+}
