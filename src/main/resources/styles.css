@@ -1,9 +1,8 @@
 /* styles.css */
+.root {
+    -fx-font-size: 19px;
+}
 
-
-/* Стиль для номеров строк */
-#lineNumbersListView {
-    -fx-font-size: 14px;
-    -fx-pref-height: 0;
-    -fx-opacity: 0;
+.label, .button, .menu-item, .text-area, .menu, .text-field, .menu-bar{
+    -fx-font-size: inherit;
 }

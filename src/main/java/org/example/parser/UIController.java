@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
@@ -44,16 +45,29 @@ public class UIController {
     @FXML
     MenuItem language, grammar;
 
+    @FXML
+    Label percent;
+
 
     @FXML
     public void initialize() {
-//        fontSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-//            updateFontSize(newVal.intValue());
-//        });
         setupLineNumbering();
         setupMenuBar();
+        setupSlider();
+    }
+
+    private void setupSlider() {
+        fontSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            int fontSize = newVal.intValue();
+            root.setStyle("-fx-font-size: " + fontSize + "px;");
+            contentTextArea.setStyle("-fx-font-size: " + fontSize + "px;");
+            double avg = (fontSizeSlider.getMin() + fontSizeSlider.getMax()) / 2;
+            int per = (int) (fontSize / avg * 100);
+            percent.setText(Integer.toString(per) + " %");
+        });
 
     }
+
 
     private void setupMenuBar() {
         close.setOnAction(event -> {
