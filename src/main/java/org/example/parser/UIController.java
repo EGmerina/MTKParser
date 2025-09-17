@@ -11,9 +11,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -22,8 +26,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static javafx.scene.paint.Color.RED;
 
 
 public class UIController {
@@ -40,13 +45,16 @@ public class UIController {
     private Parent root;
 
     @FXML
-    MenuItem close, save, clear, open;
+    private MenuItem close, save, clear, open;
 
     @FXML
-    MenuItem language, grammar;
+    private MenuItem language, grammar;
 
     @FXML
-    Label percent;
+    private Label percent;
+
+    @FXML
+    private TextFlow textFlow;
 
 
     @FXML
@@ -54,6 +62,17 @@ public class UIController {
         setupLineNumbering();
         setupMenuBar();
         setupSlider();
+    }
+
+    @FXML
+    public  void clickRunButton(){
+        String string = contentTextArea.getText();
+        Parser parser = new Parser(string);
+        String result = parser.parse();
+        System.out.println(result);
+        Text text = new Text(result);
+        text.setFill(RED);
+        textFlow.getChildren().add(text);
     }
 
     private void setupSlider() {
@@ -75,6 +94,7 @@ public class UIController {
         });
         clear.setOnAction(event -> {
             contentTextArea.clear();
+            textFlow.getChildren().clear();
         });
         open.setOnAction(event -> {
             openFile(event);
@@ -87,6 +107,9 @@ public class UIController {
         });
         grammar.setOnAction(event -> {
             openGrammarFile();
+        });
+        grammar.setOnAction(event -> {
+            System.out.println("run parser");
         });
     }
 
@@ -176,7 +199,18 @@ public class UIController {
             updateLineNumbers(newValue);
         });
 
+        contentTextArea.fontProperty().addListener((obs, oldFont, newFont) -> {
+            double lineHeight = calculateLineHeight(newFont);
+            lineNumbersListView.setFixedCellSize(lineHeight);
+        });
+
         syncScrollBars();
+    }
+
+    private double calculateLineHeight(Font font) {
+        Text text = new Text("Aa");
+        text.setFont(font);
+        return text.getLayoutBounds().getHeight() + 4; // + отступы
     }
 
     private void updateLineNumbers(String text) {
@@ -199,7 +233,7 @@ public class UIController {
         }
 
         lineNumbersListView.setItems(numbers);
-        syncSelection();
+        // syncSelection();
     }
 
     private void syncScrollBars() {
@@ -211,7 +245,6 @@ public class UIController {
                 listViewScrollBar.setValue(newVal.doubleValue());
             });
         } else {
-            // Отложенная попытка или повторный вызов
             Platform.runLater(() -> syncScrollBars());
         }
     }
@@ -228,7 +261,6 @@ public class UIController {
                 lineNumber = textBeforeCaret.split("\n", -1).length;
             }
 
-            // Выделяем текущую строку в ListView
             if (lineNumber > 0 && lineNumber <= lineNumbersListView.getItems().size()) {
                 lineNumbersListView.getSelectionModel().select(lineNumber - 1);
                 lineNumbersListView.scrollTo(lineNumber - 1);
