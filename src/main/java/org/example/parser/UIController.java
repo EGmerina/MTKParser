@@ -169,30 +169,13 @@ public class UIController {
         }
     }
 
-//    private void updateFontSize(int size) {
-//        // Устанавливаем размер через inline CSS
-//        root.setStyle("-fx-font-size: " + size + "px;");
-//
-//        // Или добавляем/удаляем CSS классы
-//        root.getStyleClass().removeAll("font-small", "font-medium", "font-large");
-//
-//        if (size < 12) {
-//            root.getStyleClass().add("font-small");
-//        } else if (size < 18) {
-//            root.getStyleClass().add("font-medium");
-//        } else {
-//            root.getStyleClass().add("font-large");
-//        }
-//    }
 
     private void setupLineNumbering() {
         updateLineNumbers(contentTextArea.getText());
-        // Связываем изменения текста с обновлением номеров
         contentTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
             updateLineNumbers(newValue);
         });
 
-        // Синхронизация прокрутки
         syncScrollBars();
     }
 
@@ -200,7 +183,6 @@ public class UIController {
 
         int lineCount = 1;
         if (!text.isEmpty()) {
-            // Самый быстрый способ для больших текстов
             int newLineCount = 0;
             for (int i = 0; i < text.length(); i++) {
                 if (text.charAt(i) == '\n') {
@@ -221,7 +203,6 @@ public class UIController {
     }
 
     private void syncScrollBars() {
-        // Синхронизация прокрутки через ScrollBar
         ScrollBar textAreaScrollBar = getVerticalScrollBar(contentTextArea);
         ScrollBar listViewScrollBar = getVerticalScrollBar(lineNumbersListView);
 
@@ -229,6 +210,9 @@ public class UIController {
             textAreaScrollBar.valueProperty().addListener((obs, oldVal, newVal) -> {
                 listViewScrollBar.setValue(newVal.doubleValue());
             });
+        } else {
+            // Отложенная попытка или повторный вызов
+            Platform.runLater(() -> syncScrollBars());
         }
     }
 

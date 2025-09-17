@@ -6,3 +6,10 @@
 .label, .button, .menu-item, .text-area, .menu, .text-field, .menu-bar{
     -fx-font-size: inherit;
 }
+
+.list-view-no-scroll .scroll-bar:vertical,
+.list-view-no-scroll .scroll-bar:horizontal {
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}

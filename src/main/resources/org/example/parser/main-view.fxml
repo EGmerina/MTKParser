@@ -77,7 +77,7 @@
                         </HBox>
                     </top>
                     <left>
-                        <ListView fx:id="lineNumbersListView" prefHeight="169.0" prefWidth="49.0" styleClass="line-numbers" BorderPane.alignment="CENTER" />
+                        <ListView fx:id="lineNumbersListView" prefHeight="169.0" prefWidth="49.0" styleClass="list-view-no-scroll" BorderPane.alignment="CENTER" />
                     </left>
                 </BorderPane>
             </children>
