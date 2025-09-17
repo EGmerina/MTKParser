@@ -5,13 +5,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -63,11 +69,44 @@ public class UIController {
             saveFile(event);
         });
         language.setOnAction(event -> {
-
+            openLanguageFile();
         });
         grammar.setOnAction(event -> {
-
+            openGrammarFile();
         });
+    }
+
+    private void openGrammarFile() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/parser/description-view.fxml"));
+            Parent root = loader.load();
+            DescriptionController controller = loader.getController();
+            controller.loadTextFromFile("grammar.txt");
+            Stage stage = new Stage();
+            stage.setTitle("G");
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openLanguageFile() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/parser/description-view.fxml"));
+            Parent root = loader.load();
+            DescriptionController controller = loader.getController();
+            controller.loadTextFromFile("language.txt");
+            Stage stage = new Stage();
+            stage.setTitle("L");
+            stage.setScene(new Scene(root, 100, 600));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void saveFile(ActionEvent event) {

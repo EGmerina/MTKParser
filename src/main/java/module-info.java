@@ -5,6 +5,7 @@ module org.example.parser {
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.feather;
+    requires java.desktop;
 
     opens org.example.parser to javafx.fxml;
     exports org.example.parser;
