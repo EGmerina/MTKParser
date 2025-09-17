@@ -14,12 +14,16 @@ public class DescriptionController {
 
     public void loadTextFromFile(String file) {
         try {
-            Font font = Font.font("Arial", FontWeight.NORMAL, 18); // размер 16px
-            textArea.setFont(font);
+            textArea.setStyle("-fx-font-family: 'Arial'; -fx-font-size: " + 20 + "px;");
             String content = new String(getClass().getResourceAsStream(file).readAllBytes());
             textArea.setText(content);
         } catch (IOException e) {
             textArea.setText("Ошибка загрузки ресурса: " + e.getMessage());
         }
+    }
+
+    public void setText(String string){
+        textArea.setText(string);
+
     }
 }

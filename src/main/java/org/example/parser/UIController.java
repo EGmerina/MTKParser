@@ -84,7 +84,9 @@ public class UIController {
             controller.loadTextFromFile("grammar.txt");
             Stage stage = new Stage();
             stage.setTitle("G");
-            stage.setScene(new Scene(root, 800, 600));
+            stage.setMinWidth(800);
+            stage.setMinHeight(600);
+            stage.setScene(new Scene(root));
             stage.show();
 
         } catch (IOException e) {
@@ -100,7 +102,9 @@ public class UIController {
             controller.loadTextFromFile("language.txt");
             Stage stage = new Stage();
             stage.setTitle("L");
-            stage.setScene(new Scene(root, 100, 600));
+            stage.setMinWidth(800);
+            stage.setMinHeight(600);
+            stage.setScene(new Scene(root));
             stage.show();
 
         } catch (IOException e) {
