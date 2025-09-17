@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<SplitPane fx:id="root" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" stylesheets="@/styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parser.UIController">
+<SplitPane fx:id="root" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" stylesheets="@/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parser.UIController">
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
@@ -36,14 +36,16 @@
                                     <menus>
                                         <Menu mnemonicParsing="false" text="File">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Close" />
-                                                <MenuItem mnemonicParsing="false" text="New" />
-                                                <MenuItem mnemonicParsing="false" text="Open" />
+                                                <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
+                                                <MenuItem fx:id="open" mnemonicParsing="false" text="Open" />
+                                    <MenuItem fx:id="clear" mnemonicParsing="false" text="Clear" />
+                                                <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Text">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                                <MenuItem fx:id="language" mnemonicParsing="false" text="Language" />
+                                    <MenuItem fx:id="grammar" mnemonicParsing="false" text="Grammar" />
                                             </items>
                                         </Menu>
                                     </menus>
