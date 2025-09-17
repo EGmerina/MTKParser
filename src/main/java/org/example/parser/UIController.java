@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 public class UIController {
@@ -15,10 +16,35 @@ public class UIController {
     private TextArea contentTextArea;
 
     @FXML
+    private Slider fontSizeSlider;
+
+    @FXML
+    private Parent root;
+
+    @FXML
     public void initialize() {
+//        fontSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+//            updateFontSize(newVal.intValue());
+//        });
         setupLineNumbering();
 
     }
+
+//    private void updateFontSize(int size) {
+//        // Устанавливаем размер через inline CSS
+//        root.setStyle("-fx-font-size: " + size + "px;");
+//
+//        // Или добавляем/удаляем CSS классы
+//        root.getStyleClass().removeAll("font-small", "font-medium", "font-large");
+//
+//        if (size < 12) {
+//            root.getStyleClass().add("font-small");
+//        } else if (size < 18) {
+//            root.getStyleClass().add("font-medium");
+//        } else {
+//            root.getStyleClass().add("font-large");
+//        }
+//    }
 
     private void setupLineNumbering() {
         updateLineNumbers(contentTextArea.getText());
@@ -33,13 +59,18 @@ public class UIController {
 
     private void updateLineNumbers(String text) {
 
-
         int lineCount = 1;
         if (!text.isEmpty()) {
-            lineCount = text.split("\n").length;
-        }
+            // Самый быстрый способ для больших текстов
+            int newLineCount = 0;
+            for (int i = 0; i < text.length(); i++) {
+                if (text.charAt(i) == '\n') {
+                    newLineCount++;
+                }
+            }
+            lineCount = newLineCount + 1;
 
-        if (text.endsWith("\n")) lineCount++;
+        }
 
         ObservableList<String> numbers = FXCollections.observableArrayList();
         for (int i = 1; i <= lineCount; i++) {
