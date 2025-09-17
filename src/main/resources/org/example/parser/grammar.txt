@@ -1,4 +1,5 @@
-Грамматика:
-While (...) {
-	//code
-}
+Грамматика G (надо дорабатывать):
+P:
+<while_statement> → "while" "(" <expression> ")" <statement>
+<expression> → ... (правила для выражений) ...
+<statement> → ... (правила для операторов) ...

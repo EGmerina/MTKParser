@@ -1,2 +1,28 @@
 Язык : 
-Вариант 11 : Оператор цикла while языка С++. 
+Вариант 11 : Оператор цикла while языка С++.
+Примеры цепочек:
+
+while(a>6){
+    a--;
+    //hello!
+}
+
+while(true){
+        asdjnekls
+}
+
+whille(4){
+//error!
+}
+
+while(xbein {
+    ;ojpf;
+    //error!
+}
+
+while () } //error!
+
+while ; (1) { //error!
+    rsgr
+}
+
