@@ -103,24 +103,22 @@ public class UIController {
             saveFile(event);
         });
         language.setOnAction(event -> {
-            openLanguageFile();
+            openDescriptionFile("language.txt");
         });
         grammar.setOnAction(event -> {
-            openGrammarFile();
-        });
-        grammar.setOnAction(event -> {
-            System.out.println("run parser");
+            openDescriptionFile("grammar.txt");
         });
     }
 
-    private void openGrammarFile() {
+
+    private void openDescriptionFile(String file){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/parser/description-view.fxml"));
             Parent root = loader.load();
             DescriptionController controller = loader.getController();
-            controller.loadTextFromFile("grammar.txt");
+            controller.loadTextFromFile(file);
             Stage stage = new Stage();
-            stage.setTitle("G");
+            stage.setTitle(file);
             stage.setMinWidth(800);
             stage.setMinHeight(600);
             stage.setScene(new Scene(root));
@@ -129,25 +127,6 @@ public class UIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void openLanguageFile() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/parser/description-view.fxml"));
-            Parent root = loader.load();
-            DescriptionController controller = loader.getController();
-            controller.loadTextFromFile("language.txt");
-            Stage stage = new Stage();
-            stage.setTitle("L");
-            stage.setMinWidth(800);
-            stage.setMinHeight(600);
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void saveFile(ActionEvent event) {
