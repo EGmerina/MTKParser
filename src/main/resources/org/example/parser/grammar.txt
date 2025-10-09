@@ -1,5 +1,8 @@
-Грамматика G (надо дорабатывать):
+Грамматика G :
 P:
 <while_statement> → "while" "(" <expression> ")" <statement>
 <expression> → ... (правила для выражений) ...
 <statement> → ... (правила для операторов) ...
+
+VN = {<while_statement>, <expression>, <statement> }
+VT = {все символы, "while" }

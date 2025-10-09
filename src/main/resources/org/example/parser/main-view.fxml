@@ -58,10 +58,10 @@
                                         <Insets />
                                     </HBox.margin>
                                 </MenuBar>
-                                <Button fx:id="run" mnemonicParsing="false" onAction="#clickRunButton" prefHeight="40.0" prefWidth="52.0" HBox.hgrow="ALWAYS">
-                                    <graphic>
-                                        <FontIcon iconLiteral="fth-play" iconColor="GREEN"/>
-                                    </graphic>
+                                <Button fx:id="run" mnemonicParsing="false" onAction="#clickRunButton"  prefWidth="52.0" HBox.hgrow="ALWAYS" maxHeight="Infinity" >
+<!--                                    <graphic>-->
+<!--                                        <FontIcon iconLiteral="fth-play" iconColor="GREEN"/>-->
+<!--                                    </graphic>-->
                                 </Button>
                                 <Region prefHeight="27.0" prefWidth="103.0" HBox.hgrow="ALWAYS" />
                                 <Label prefHeight="27.0" prefWidth="71.0" text="Scale" />
