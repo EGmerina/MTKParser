@@ -77,7 +77,7 @@
                         </HBox>
                     </top>
                <left>
-                  <TextArea fx:id="listTextArea" editable="false" maxWidth="0.0" prefHeight="246.0" prefWidth="0.0" styleClass="list-view-no-scroll" BorderPane.alignment="CENTER">
+                  <TextArea fx:id="listTextArea" editable="false" maxWidth="0.0" prefHeight="169.0" prefWidth="0.0" styleClass="list-view-no-scroll" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="19.0" />
                      </font></TextArea>

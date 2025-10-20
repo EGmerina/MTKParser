@@ -13,3 +13,17 @@
     -fx-opacity: 0;
     -fx-padding: 0;
 }
+
+.text-area .scroll-pane {
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-pannable: false;
+}
+
+#listTextArea {
+    -fx-text-fill: gray;
+    -fx-control-inner-background: #f8f8f8;
+}
