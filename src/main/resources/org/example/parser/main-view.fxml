@@ -10,10 +10,12 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -29,59 +31,67 @@
                             </font>
                         </TextArea>
                     </center>
-                    <top>
-                        <HBox prefHeight="27.0" prefWidth="598.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <MenuBar prefHeight="27.0" prefWidth="205.0">
-                                    <menus>
-                                        <Menu mnemonicParsing="false" text="File">
-                                            <items>
-                                                <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
-                                                <MenuItem fx:id="open" mnemonicParsing="false" text="Open" />
-                                                <MenuItem fx:id="clear" mnemonicParsing="false" text="Clear" />
-                                                <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
-                                            </items>
-                                        </Menu>
-                                        <Menu mnemonicParsing="false" text="Text">
-                                            <items>
-                                                <MenuItem fx:id="language" mnemonicParsing="false" text="Language" />
-                                                <MenuItem fx:id="grammar" mnemonicParsing="false" text="Grammar" />
-                                            </items>
-                                        </Menu>
-                                    </menus>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <HBox.margin>
-                                        <Insets />
-                                    </HBox.margin>
-                                </MenuBar>
-                                <Button fx:id="run" maxHeight="Infinity" mnemonicParsing="false" onAction="#clickRunButton" prefWidth="52.0" HBox.hgrow="ALWAYS">
-<!--                                    <graphic>-->
-<!--                                        <FontIcon iconLiteral="fth-play" iconColor="GREEN"/>-->
-<!--                                    </graphic>-->
-                                </Button>
-                                <Region prefHeight="27.0" prefWidth="103.0" HBox.hgrow="ALWAYS" />
-                                <Label prefHeight="27.0" prefWidth="71.0" text="Scale" />
-                                <Slider fx:id="fontSizeSlider" blockIncrement="1.0" max="25.0" min="13.0" prefHeight="35.0" prefWidth="140.0" value="19.0">
-                                    <HBox.margin>
-                                        <Insets />
-                                    </HBox.margin>
-                                </Slider>
-                                <Label fx:id="percent" prefHeight="27.0" prefWidth="88.0" text="100%">
-                                    <HBox.margin>
-                                        <Insets right="5.0" />
-                                    </HBox.margin>
-                                </Label>
-                            </children>
-                        </HBox>
-                    </top>
                <left>
                   <TextArea fx:id="listTextArea" editable="false" maxWidth="0.0" prefHeight="169.0" prefWidth="0.0" styleClass="list-view-no-scroll" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="19.0" />
                      </font></TextArea>
                </left>
+               <top>
+                  <VBox BorderPane.alignment="CENTER">
+                     <children>
+                              <HBox prefHeight="37.0" prefWidth="598.0">
+                                  <children>
+                                      <MenuBar prefHeight="37.0" prefWidth="610.0" HBox.hgrow="ALWAYS">
+                                          <menus>
+                                              <Menu mnemonicParsing="false" text="File">
+                                                  <items>
+                                                      <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
+                                                      <MenuItem fx:id="open" mnemonicParsing="false" text="Open" />
+                                                      <MenuItem fx:id="clear" mnemonicParsing="false" text="Clear" />
+                                                      <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
+                                                  </items>
+                                              </Menu>
+                                              <Menu mnemonicParsing="false" text="Text">
+                                                  <items>
+                                                      <MenuItem fx:id="language" mnemonicParsing="false" text="Language" />
+                                                      <MenuItem fx:id="grammar" mnemonicParsing="false" text="Grammar" />
+                                                  </items>
+                                              </Menu>
+                                    <Menu mnemonicParsing="false" text="Info">
+                                       <items>
+                                          <MenuItem fx:id="usage" mnemonicParsing="false" text="Usage" />
+                                          <MenuItem fx:id="Aprogram" mnemonicParsing="false" text="About program" />
+                                       </items>
+                                    </Menu>
+                                          </menus>
+                                          <opaqueInsets>
+                                              <Insets />
+                                          </opaqueInsets>
+                                      </MenuBar>
+                                  </children>
+                              </HBox>
+                        <ToolBar prefHeight="45.0" prefWidth="585.0" VBox.vgrow="ALWAYS">
+                          <items>
+                              <Button fx:id="bclear" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
+                              <Button fx:id="bopen" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
+                              <Button fx:id="bsave" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
+                              <Button fx:id="babout" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
+                            <Button fx:id="binfo" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
+                                      <Button fx:id="run" maxHeight="Infinity" mnemonicParsing="false" onAction="#clickRunButton" prefHeight="19.0" prefWidth="52.0">
+<!--                                    <graphic>-->
+<!--                                        <FontIcon iconLiteral="fth-play" iconColor="GREEN"/>-->
+<!--                                    </graphic>-->
+                                </Button>
+                                      <Region prefHeight="35.0" prefWidth="30.0" HBox.hgrow="ALWAYS" />
+                                      <Label prefHeight="27.0" prefWidth="71.0" text="Scale" />
+                                      <Slider fx:id="fontSizeSlider" blockIncrement="1.0" max="25.0" min="13.0" prefHeight="35.0" prefWidth="140.0" value="19.0" />
+                                      <Label fx:id="percent" prefHeight="27.0" prefWidth="86.0" text="100%" />
+                          </items>
+                        </ToolBar>
+                     </children>
+                  </VBox>
+               </top>
                 </BorderPane>
             </children>
         </AnchorPane>

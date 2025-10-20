@@ -20,6 +20,9 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.controlsfx.glyphfont.FontAwesome;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.awt.*;
 import java.io.File;
@@ -45,7 +48,7 @@ public class UIController {
     private MenuItem close, save, clear, open;
 
     @FXML
-    private MenuItem language, grammar;
+    private MenuItem language, grammar, usage, Aprogram;
 
     @FXML
     private Label percent;
@@ -53,12 +56,51 @@ public class UIController {
     @FXML
     private TextFlow textFlow;
 
+    @FXML
+    private Button bsave, bopen, bclear, binfo, babout, run;
+
 
     @FXML
     public void initialize() {
         setupLineNumbering();
         setupMenuBar();
+        setupButtons();
         setupSlider();
+    }
+
+    private void setupButtons() {
+        FontIcon save = new FontIcon(Feather.SAVE);
+        FontIcon open = new FontIcon(Feather.FOLDER);
+        FontIcon clear = new FontIcon(Feather.FILE);
+        FontIcon info = new FontIcon(Feather.INFO);
+        FontIcon about = new FontIcon(Feather.HELP_CIRCLE);
+        FontIcon brun = new FontIcon(Feather.PLAY);
+
+        bsave.setGraphic(save);
+        bopen.setGraphic(open);
+        binfo.setGraphic(info);
+        babout.setGraphic(about);
+        bclear.setGraphic(clear);
+        run.setGraphic(brun);
+
+        bclear.setOnAction(event -> {
+            contentTextArea.clear();
+            listTextArea.clear();
+            textFlow.getChildren().clear();
+        });
+        bopen.setOnAction(event -> {
+            openFile(event);
+        });
+        bsave.setOnAction(event -> {
+            saveFile(event);
+        });
+        binfo.setOnAction(event -> {
+            openDescriptionFile("info.txt");
+        });
+        babout.setOnAction(event -> {
+            openDescriptionFile("usage.txt");
+        });
+
     }
 
     @FXML
@@ -106,6 +148,12 @@ public class UIController {
         });
         grammar.setOnAction(event -> {
             openDescriptionFile("grammar.txt");
+        });
+        Aprogram.setOnAction(event -> {
+            openDescriptionFile("info.txt");
+        });
+        usage.setOnAction(event -> {
+            openDescriptionFile("usage.txt");
         });
     }
 

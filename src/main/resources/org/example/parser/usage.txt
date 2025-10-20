@@ -1,0 +1,3 @@
+instruction manual :
+1) enter a language chain
+2) press start button
