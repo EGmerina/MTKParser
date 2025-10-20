@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -18,16 +17,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 <SplitPane fx:id="root" dividerPositions="0.6934673366834171" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" stylesheets="@/styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parser.UIController">
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
                 <BorderPane layoutX="-6.0" layoutY="-2.0" prefHeight="196.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <center>
-                        <TextArea fx:id="contentTextArea" prefHeight="169.0" prefWidth="553.0" styleClass="line-numbers" BorderPane.alignment="CENTER">
+                        <TextArea fx:id="contentTextArea" prefHeight="169.0" prefWidth="553.0" BorderPane.alignment="CENTER">
                             <font>
-                                <Font size="18.0" />
+                                <Font size="19.0" />
                             </font>
                         </TextArea>
                     </center>
@@ -58,7 +56,7 @@
                                         <Insets />
                                     </HBox.margin>
                                 </MenuBar>
-                                <Button fx:id="run" mnemonicParsing="false" onAction="#clickRunButton"  prefWidth="52.0" HBox.hgrow="ALWAYS" maxHeight="Infinity" >
+                                <Button fx:id="run" maxHeight="Infinity" mnemonicParsing="false" onAction="#clickRunButton" prefWidth="52.0" HBox.hgrow="ALWAYS">
 <!--                                    <graphic>-->
 <!--                                        <FontIcon iconLiteral="fth-play" iconColor="GREEN"/>-->
 <!--                                    </graphic>-->
@@ -78,9 +76,12 @@
                             </children>
                         </HBox>
                     </top>
-                    <left>
-                        <ListView fx:id="lineNumbersListView" prefHeight="169.0" prefWidth="49.0" styleClass="list-view-no-scroll" BorderPane.alignment="CENTER" />
-                    </left>
+               <left>
+                  <TextArea fx:id="listTextArea" editable="false" maxWidth="0.0" prefHeight="246.0" prefWidth="0.0" styleClass="list-view-no-scroll" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="19.0" />
+                     </font></TextArea>
+               </left>
                 </BorderPane>
             </children>
         </AnchorPane>

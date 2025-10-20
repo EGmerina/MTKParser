@@ -1,8 +1,6 @@
 package org.example.parser;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,11 +30,9 @@ import static javafx.scene.paint.Color.RED;
 
 
 public class UIController {
-    @FXML
-    private ListView<String> lineNumbersListView;
 
     @FXML
-    private TextArea contentTextArea;
+    private TextArea contentTextArea, listTextArea;
 
     @FXML
     private Slider fontSizeSlider;
@@ -65,7 +61,7 @@ public class UIController {
     }
 
     @FXML
-    public  void clickRunButton(){
+    public void clickRunButton() {
         String string = contentTextArea.getText();
         Parser parser = new Parser(string);
         String result = parser.parse();
@@ -80,6 +76,7 @@ public class UIController {
             int fontSize = newVal.intValue();
             root.setStyle("-fx-font-size: " + fontSize + "px;");
             contentTextArea.setStyle("-fx-font-size: " + fontSize + "px;");
+            listTextArea.setStyle("-fx-font-size: " + fontSize + "px;");
             double avg = (fontSizeSlider.getMin() + fontSizeSlider.getMax()) / 2;
             int per = (int) (fontSize / avg * 100);
             percent.setText(Integer.toString(per) + " %");
@@ -94,6 +91,7 @@ public class UIController {
         });
         clear.setOnAction(event -> {
             contentTextArea.clear();
+            listTextArea.clear();
             textFlow.getChildren().clear();
         });
         open.setOnAction(event -> {
@@ -111,7 +109,7 @@ public class UIController {
     }
 
 
-    private void openDescriptionFile(String file){
+    private void openDescriptionFile(String file) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/parser/description-view.fxml"));
             Parent root = loader.load();
@@ -173,23 +171,11 @@ public class UIController {
 
 
     private void setupLineNumbering() {
-        updateLineNumbers(contentTextArea.getText());
         contentTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
             updateLineNumbers(newValue);
         });
 
-        contentTextArea.fontProperty().addListener((obs, oldFont, newFont) -> {
-            double lineHeight = calculateLineHeight(newFont);
-            lineNumbersListView.setFixedCellSize(lineHeight);
-        });
-
         syncScrollBars();
-    }
-
-    private double calculateLineHeight(Font font) {
-        Text text = new Text("Aa");
-        text.setFont(font);
-        return text.getLayoutBounds().getHeight() + 4; // + отступы
     }
 
     private void updateLineNumbers(String text) {
@@ -205,47 +191,45 @@ public class UIController {
             lineCount = newLineCount + 1;
 
         }
-
-        ObservableList<String> numbers = FXCollections.observableArrayList();
+        String list = new String();
         for (int i = 1; i <= lineCount; i++) {
-            numbers.add(String.format("%3d", i));
+            list += (i + System.lineSeparator());
         }
-
-        lineNumbersListView.setItems(numbers);
+        listTextArea.setText(list);
         // syncSelection();
     }
 
     private void syncScrollBars() {
         ScrollBar textAreaScrollBar = getVerticalScrollBar(contentTextArea);
-        ScrollBar listViewScrollBar = getVerticalScrollBar(lineNumbersListView);
+        ScrollBar listScrollBar = getVerticalScrollBar(listTextArea);
 
-        if (textAreaScrollBar != null && listViewScrollBar != null) {
+        if (textAreaScrollBar != null && listScrollBar != null) {
             textAreaScrollBar.valueProperty().addListener((obs, oldVal, newVal) -> {
-                listViewScrollBar.setValue(newVal.doubleValue());
+                listScrollBar.setValue(newVal.doubleValue());
             });
         } else {
             Platform.runLater(() -> syncScrollBars());
         }
     }
 
-    private void syncSelection() {
-        // Синхронизация текущей строки
-        contentTextArea.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
-            int caretPos = newVal.intValue();
-            String text = contentTextArea.getText();
-            int lineNumber = 1;
-
-            if (caretPos > 0 && text.length() > 0) {
-                String textBeforeCaret = text.substring(0, Math.min(caretPos, text.length()));
-                lineNumber = textBeforeCaret.split("\n", -1).length;
-            }
-
-            if (lineNumber > 0 && lineNumber <= lineNumbersListView.getItems().size()) {
-                lineNumbersListView.getSelectionModel().select(lineNumber - 1);
-                lineNumbersListView.scrollTo(lineNumber - 1);
-            }
-        });
-    }
+//    private void syncSelection() {
+//        // Синхронизация текущей строки
+//        contentTextArea.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
+//            int caretPos = newVal.intValue();
+//            String text = contentTextArea.getText();
+//            int lineNumber = 1;
+//
+//            if (caretPos > 0 && text.length() > 0) {
+//                String textBeforeCaret = text.substring(0, Math.min(caretPos, text.length()));
+//                lineNumber = textBeforeCaret.split("\n", -1).length;
+//            }
+//
+//            if (lineNumber > 0 && lineNumber <= lineNumbersListView.getItems().size()) {
+//                lineNumbersListView.getSelectionModel().select(lineNumber - 1);
+//                lineNumbersListView.scrollTo(lineNumber - 1);
+//            }
+//        });
+//    }
 
     // Вспомогательный метод для получения ScrollBar
     private ScrollBar getVerticalScrollBar(Control control) {
