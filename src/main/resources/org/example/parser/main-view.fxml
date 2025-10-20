@@ -62,6 +62,7 @@
                                        <items>
                                           <MenuItem fx:id="usage" mnemonicParsing="false" text="Usage" />
                                           <MenuItem fx:id="Aprogram" mnemonicParsing="false" text="About program" />
+                                          <MenuItem fx:id="report" mnemonicParsing="false" text="Full report" />
                                        </items>
                                     </Menu>
                                           </menus>

@@ -13,14 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.controlsfx.glyphfont.FontAwesome;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -48,7 +45,7 @@ public class UIController {
     private MenuItem close, save, clear, open;
 
     @FXML
-    private MenuItem language, grammar, usage, Aprogram;
+    private MenuItem language, grammar, usage, Aprogram, report;
 
     @FXML
     private Label percent;
@@ -155,6 +152,46 @@ public class UIController {
         usage.setOnAction(event -> {
             openDescriptionFile("usage.txt");
         });
+        report.setOnAction(event -> {
+            openReport();
+        });
+    }
+
+    private void openReport() {
+        File wordFile = new File("src/main/resources/org/example/parser/отчет_Гмерина.docx");
+
+        if (!wordFile.exists()) {
+            showFileNotFoundAlert(wordFile.getAbsolutePath());
+            return;
+        }
+
+        Thread openThread = new Thread(() -> {
+            try {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(wordFile);
+            } catch (IOException e) {
+                Platform.runLater(() -> showErrorAlert("error when open file", e.getMessage()));
+            }
+        });
+
+        openThread.setDaemon(true);
+        openThread.start();
+    }
+
+    private void showFileNotFoundAlert(String filePath) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("file not found");
+        alert.setHeaderText("cant find the file");
+        alert.setContentText("path: " + filePath);
+        alert.showAndWait();
+    }
+
+    private void showErrorAlert(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("error");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 
@@ -261,26 +298,7 @@ public class UIController {
         }
     }
 
-//    private void syncSelection() {
-//        // Синхронизация текущей строки
-//        contentTextArea.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
-//            int caretPos = newVal.intValue();
-//            String text = contentTextArea.getText();
-//            int lineNumber = 1;
-//
-//            if (caretPos > 0 && text.length() > 0) {
-//                String textBeforeCaret = text.substring(0, Math.min(caretPos, text.length()));
-//                lineNumber = textBeforeCaret.split("\n", -1).length;
-//            }
-//
-//            if (lineNumber > 0 && lineNumber <= lineNumbersListView.getItems().size()) {
-//                lineNumbersListView.getSelectionModel().select(lineNumber - 1);
-//                lineNumbersListView.scrollTo(lineNumber - 1);
-//            }
-//        });
-//    }
 
-    // Вспомогательный метод для получения ScrollBar
     private ScrollBar getVerticalScrollBar(Control control) {
         for (Node node : control.lookupAll(".scroll-bar")) {
             if (node instanceof ScrollBar && ((ScrollBar) node).getOrientation() == Orientation.VERTICAL) {
