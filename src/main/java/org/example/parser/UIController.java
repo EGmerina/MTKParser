@@ -103,8 +103,8 @@ public class UIController {
     @FXML
     public void clickRunButton() {
         String string = contentTextArea.getText();
-        Parser parser = new Parser(string);
-        String result = parser.parse();
+        Parser parser = new Parser();
+        String result = parser.parse(string);
         System.out.println(result);
         Text text = new Text(result);
         text.setFill(RED);

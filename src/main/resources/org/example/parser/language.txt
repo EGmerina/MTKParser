@@ -7,7 +7,7 @@ while(a>6){
     //hello!
 }
 
-while(true){
+while(1){
         asdjnekls
 }
 

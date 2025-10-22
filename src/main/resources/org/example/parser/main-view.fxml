@@ -56,13 +56,13 @@
                                                   <items>
                                                       <MenuItem fx:id="language" mnemonicParsing="false" text="Language" />
                                                       <MenuItem fx:id="grammar" mnemonicParsing="false" text="Grammar" />
+                                          <MenuItem fx:id="report" mnemonicParsing="false" text="Full report" />
                                                   </items>
                                               </Menu>
                                     <Menu mnemonicParsing="false" text="Info">
                                        <items>
                                           <MenuItem fx:id="usage" mnemonicParsing="false" text="Usage" />
                                           <MenuItem fx:id="Aprogram" mnemonicParsing="false" text="About program" />
-                                          <MenuItem fx:id="report" mnemonicParsing="false" text="Full report" />
                                        </items>
                                     </Menu>
                                           </menus>

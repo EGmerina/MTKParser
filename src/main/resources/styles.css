@@ -3,9 +3,9 @@
     -fx-font-size: 19px;
 }
 
-.label, .button, .menu-item, .text-area, .menu, .text-field, .menu-bar{
+/*.label, .button, .menu-item, .text-area, .menu, .text-field, .menu-bar{
     -fx-font-size: inherit;
-}
+}*/
 
 .list-view-no-scroll .scroll-bar:vertical,
 .list-view-no-scroll .scroll-bar:horizontal {
