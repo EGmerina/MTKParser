@@ -18,6 +18,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.example.parser.utils.Lexer;
 import org.example.parser.utils.Parser;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
 
@@ -103,12 +105,16 @@ public class UIController {
 
     @FXML
     public void clickRunButton() {
+        textFlow.getChildren().clear();
         String string = contentTextArea.getText();
-        Parser parser = new Parser();
-        String result = parser.parse(string);
-        System.out.println(result);
+        Parser parser = new Parser(string);
+        String result = parser.parse();
         Text text = new Text(result);
-        text.setFill(RED);
+        if (result.contains("no error")) {
+            text.setFill(GREEN);
+        } else {
+            text.setFill(RED);
+        }
         textFlow.getChildren().add(text);
     }
 

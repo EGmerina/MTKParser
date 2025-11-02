@@ -2,9 +2,9 @@ package org.example.parser.utils;
 
 public class Token {
     private TokenType type;
-    String tokenString;
-    int line;
-    int column;
+    private String tokenString;
+    private int line;
+    private int column;
 
     public Token(TokenType type, String tokenString, int line, int column) {
         this.type = type;
@@ -14,8 +14,12 @@ public class Token {
 
     }
 
+    public TokenType getType() {
+        return type;
+    }
+
     public String getTokenDescription() {
-        return type + " (" + tokenString + ") at " + line + " : " + column;
+        return type + " " + tokenString + " at line " + line + ", symbol " + column;
     }
 
 }
