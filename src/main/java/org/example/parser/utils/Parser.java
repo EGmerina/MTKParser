@@ -1,6 +1,4 @@
-package org.example.parser;
-
-import java.util.ArrayList;
+package org.example.parser.utils;
 
 public class Parser {
     public Parser() {

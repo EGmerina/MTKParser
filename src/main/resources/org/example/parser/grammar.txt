@@ -1,8 +1,25 @@
-Грамматика G :
-P:
-<while_statement> → "while" "(" <expression> ")" <statement>
-<expression> → ... (правила для выражений) ...
-<statement> → ... (правила для операторов) ...
+Грамматика оператора цикла while в языке C++ G[<W>] в нотации Хомского с продукциями P:
+G[<W>]:
+1) <W>   → while ( <C> ) { <SL> }
+2) <C>   → <E> <CMP> <E>
+3) <SL>  → <S> <SL> | ε
+4) <S>   → <AS> <END>
+5) <AS>  → <VAR> = <E>
+6) <E>   → <T> <A>
+7) <A>   → + <T> <A> | - <T> <A> | ε
+8) <T>   → <O> <M>
+9) <M>   → * <O> <M> | / <O> <M> | ε
+10) <O>  → <VAR> | <NUM> | ( <E> )
+11) <CMP> → < | > | == | != | <= | >=
+12) <END> → ;
+13) <VAR> → letter <VAR_TAIL>
+14) <VAR_TAIL> → letter | digit | ε
+15) <NUM> → digit <NUM_TAIL>
+16) <NUM_TAIL> → digit <NUM_TAIL> | ε
+17) letter → 'a' | 'b' | ... | 'z' | 'A' | 'B' | ... | 'Z'
+18) digit → '0' | '1' | ... | '9'
 
-VN = {<while_statement>, <expression>, <statement> }
-VT = {все символы, "while" }
+Следуя введенному формальному определению грамматики, представим G[Z] ее составляющими:
+    • Z = <W>
+    • VT = {while, (, ), {, }, =, +, -, *, /, <, >, ==, !=, <=, >=, ;, a–z, A–Z, 0–9}
+    • VN = {<W>, <C>, <E>, <T>, <M>, <A>, <O>, <S>, <SL>, <AS>, <VAR>, <VAR_TAIL>, <NUM>, <NUM_TAIL>, <CMP>, <END>}.

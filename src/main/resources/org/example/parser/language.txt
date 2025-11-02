@@ -3,26 +3,28 @@
 Примеры цепочек:
 
 while(a>6){
-    a--;
-    //hello!
+    a=5;
 }
 
-while(1){
+while(a*7+9>6-23){
+    a=5*v - 347;
+}
+
+while(1==8){
         asdjnekls
 }
 
 whille(4){
-//error!
+ x=56;
 }
 
 while(xbein {
     ;ojpf;
-    //error!
 }
 
-while () } //error!
+while () }
 
-while ; (1) { //error!
+while ; (1) {
     rsgr
 }
 

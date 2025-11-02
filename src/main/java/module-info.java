@@ -9,4 +9,6 @@ module org.example.parser {
 
     opens org.example.parser to javafx.fxml;
     exports org.example.parser;
+    exports org.example.parser.utils;
+    opens org.example.parser.utils to javafx.fxml;
 }
