@@ -18,6 +18,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.example.parser.utils.ANTLRParser;
 import org.example.parser.utils.Lexer;
 import org.example.parser.utils.Parser;
 import org.kordamp.ikonli.feather.Feather;
@@ -61,7 +62,7 @@ public class UIController {
     private TextFlow textFlow;
 
     @FXML
-    private Button bsave, bopen, bclear, binfo, babout, run, back, forward;
+    private Button bsave, bopen, bclear, binfo, babout, run, back, forward, antlr;
 
 
     @FXML
@@ -122,6 +123,16 @@ public class UIController {
             // После повтора, обновляем lastSavedContent
             lastSavedContent = contentTextArea.getText();
         });
+
+        antlr.setOnAction(event -> {
+            textFlow.getChildren().clear();
+            ANTLRParser antlrParser = new ANTLRParser();
+            String input = contentTextArea.getText();
+            String antlrResult = antlrParser.parseAndFormat(input);
+            Text text = new Text(antlrResult);
+            textFlow.getChildren().add(text);
+        });
+
 
     }
 

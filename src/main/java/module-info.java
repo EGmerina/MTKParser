@@ -1,6 +1,7 @@
 module org.example.parser {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.antlr.antlr4.runtime;
 
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
