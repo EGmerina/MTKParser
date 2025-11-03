@@ -124,8 +124,6 @@ public class Parser {
                 eat(TokenType.RBRACE);
             }
 
-            System.out.println("Successfully parsed while statement");
-
         } catch (Exception e) {
             attemptRecovery(syncW, "Unexpected error in while statement: " + e.getMessage());
         }
