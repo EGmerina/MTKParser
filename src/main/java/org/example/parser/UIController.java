@@ -34,6 +34,10 @@ import static javafx.scene.paint.Color.RED;
 
 
 public class UIController {
+    private HistoryManager historyManager;
+
+    // Переменная для сохранения последнего сохраненного состояния текста
+    private String lastSavedContent = "";
 
     @FXML
     private TextArea contentTextArea, listTextArea;
@@ -45,7 +49,7 @@ public class UIController {
     private Parent root;
 
     @FXML
-    private MenuItem close, save, clear, open;
+    private MenuItem close, save, clear, open, copy, paste;
 
     @FXML
     private MenuItem language, grammar, usage, Aprogram, report;
@@ -57,15 +61,18 @@ public class UIController {
     private TextFlow textFlow;
 
     @FXML
-    private Button bsave, bopen, bclear, binfo, babout, run;
+    private Button bsave, bopen, bclear, binfo, babout, run, back, forward;
 
 
     @FXML
     public void initialize() {
+        historyManager = new HistoryManager(); // Инициализация менеджера
+        lastSavedContent = contentTextArea.getText();
         setupLineNumbering();
         setupMenuBar();
         setupButtons();
         setupSlider();
+        setupTextChangeTracking();
     }
 
     private void setupButtons() {
@@ -75,6 +82,8 @@ public class UIController {
         FontIcon info = new FontIcon(Feather.INFO);
         FontIcon about = new FontIcon(Feather.HELP_CIRCLE);
         FontIcon brun = new FontIcon(Feather.PLAY);
+        FontIcon bback = new FontIcon(Feather.ARROW_LEFT);
+        FontIcon bforward = new FontIcon(Feather.ARROW_RIGHT);
 
         bsave.setGraphic(save);
         bopen.setGraphic(open);
@@ -82,6 +91,8 @@ public class UIController {
         babout.setGraphic(about);
         bclear.setGraphic(clear);
         run.setGraphic(brun);
+        back.setGraphic(bback);
+        forward.setGraphic(bforward);
 
         bclear.setOnAction(event -> {
             contentTextArea.clear();
@@ -99,6 +110,17 @@ public class UIController {
         });
         babout.setOnAction(event -> {
             openDescriptionFile("usage.txt");
+        });
+        back.setOnAction(event -> {
+            historyManager.undo();
+            // После отмены, обновляем lastSavedContent для правильного отслеживания
+            lastSavedContent = contentTextArea.getText();
+        });
+
+        forward.setOnAction(event -> {
+            historyManager.redo();
+            // После повтора, обновляем lastSavedContent
+            lastSavedContent = contentTextArea.getText();
         });
 
     }
@@ -161,6 +183,12 @@ public class UIController {
         });
         report.setOnAction(event -> {
             openReport();
+        });
+        copy.setOnAction(event -> {
+            contentTextArea.copy();
+        });
+        paste.setOnAction(event -> {
+            contentTextArea.paste();
         });
     }
 
@@ -313,6 +341,28 @@ public class UIController {
             }
         }
         return null;
+    }
+
+    private void setupTextChangeTracking() {
+        // Слушаем потерю фокуса. Это простая эвристика для завершения "сеанса ввода".
+        contentTextArea.focusedProperty().addListener((obs, wasFocused, isFocused) -> {
+            if (wasFocused && !isFocused) {
+                String currentContent = contentTextArea.getText();
+                if (!currentContent.equals(lastSavedContent)) {
+
+                    // Создаем команду с предыдущим состоянием
+                    Command command = new TextChangeCommand(
+                            contentTextArea,
+                            lastSavedContent,
+                            currentContent
+                    );
+                    historyManager.executeCommand(command);
+
+                    // Обновляем последнее сохраненное состояние для следующей команды
+                    lastSavedContent = currentContent;
+                }
+            }
+        });
     }
 
 }

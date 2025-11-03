@@ -48,10 +48,16 @@
                                                   <items>
                                                       <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
                                                       <MenuItem fx:id="open" mnemonicParsing="false" text="Open" />
-                                                      <MenuItem fx:id="clear" mnemonicParsing="false" text="Clear" />
                                                       <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
                                                   </items>
                                               </Menu>
+                                    <Menu mnemonicParsing="false" text="Edit">
+                                       <items>
+                                          <MenuItem fx:id="copy" mnemonicParsing="false" text="Copy" />
+                                          <MenuItem fx:id="paste" mnemonicParsing="false" text="Paste" />
+                                                      <MenuItem fx:id="clear" mnemonicParsing="false" text="Clear" />
+                                       </items>
+                                    </Menu>
                                               <Menu mnemonicParsing="false" text="Text">
                                                   <items>
                                                       <MenuItem fx:id="language" mnemonicParsing="false" text="Language" />
@@ -77,6 +83,8 @@
                               <Button fx:id="bclear" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
                               <Button fx:id="bopen" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
                               <Button fx:id="bsave" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
+                              <Button fx:id="back" maxHeight="Infinity" mnemonicParsing="false" onAction="#clickRunButton" prefHeight="19.0" prefWidth="52.0" />
+                              <Button fx:id="forward" maxHeight="Infinity" mnemonicParsing="false" onAction="#clickRunButton" prefHeight="19.0" prefWidth="52.0" />
                               <Button fx:id="babout" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
                             <Button fx:id="binfo" maxHeight="Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" />
                                       <Button fx:id="run" maxHeight="Infinity" mnemonicParsing="false" onAction="#clickRunButton" prefHeight="19.0" prefWidth="52.0">

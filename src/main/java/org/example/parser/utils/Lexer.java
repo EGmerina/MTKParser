@@ -80,39 +80,39 @@ public class Lexer {
                 return new Token(TokenType.ASSIGN, "=", startLine, startCol);
             case '+':
                 advance();
-                return new Token(TokenType.ADD, "+",  startLine, startCol);
+                return new Token(TokenType.ADD, "+", startLine, startCol);
             case '-':
                 advance();
-                return new Token(TokenType.ADD, "-",  startLine, startCol);
+                return new Token(TokenType.ADD, "-", startLine, startCol);
             case '*':
                 advance();
-                return new Token(TokenType.MULTIPLY, "*",  startLine, startCol);
+                return new Token(TokenType.MULTIPLY, "*", startLine, startCol);
             case '/':
                 advance();
-                return new Token(TokenType.MULTIPLY, "/",  startLine, startCol);
+                return new Token(TokenType.MULTIPLY, "/", startLine, startCol);
             case '<':
                 advance();
                 if (currentChar() == '=') {
                     advance();
-                    return new Token(TokenType.COMPARE, "<=",  startLine, startCol);
+                    return new Token(TokenType.COMPARE, "<=", startLine, startCol);
                 }
-                return new Token(TokenType.COMPARE, "<",  startLine, startCol);
+                return new Token(TokenType.COMPARE, "<", startLine, startCol);
             case '>':
                 advance();
                 if (currentChar() == '=') {
                     advance();
-                    return new Token(TokenType.COMPARE, ">=",  startLine, startCol);
+                    return new Token(TokenType.COMPARE, ">=", startLine, startCol);
                 }
-                return new Token(TokenType.COMPARE, ">",  startLine, startCol);
+                return new Token(TokenType.COMPARE, ">", startLine, startCol);
             case '!':
                 advance();
                 if (currentChar() == '=') {
                     advance();
-                    return new Token(TokenType.COMPARE, "!=",  startLine, startCol);
+                    return new Token(TokenType.COMPARE, "!=", startLine, startCol);
                 }
-                throw new RuntimeException("Unexpected character: ! at position " + (position - 1));
+                return new Token(TokenType.UNDEFINED, "!", startLine, startCol);
             default:
-                throw new RuntimeException("Unexpected character: " + current + " at position " + position);
+                return new Token(TokenType.UNDEFINED, "?", startLine, startCol);
         }
     }
 
