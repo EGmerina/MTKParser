@@ -24,7 +24,7 @@ public class ANTLRParser {
 
         @Override
         public String toString() {
-            return String.format("Line %d:%d - %s", line, position, message);
+            return String.format("line %d, column %d - %s", line, position, message);
         }
     }
 
@@ -32,28 +32,25 @@ public class ANTLRParser {
         public final boolean success;
         public final List<SyntaxError> errors;
         public final String parseTree;
-        public final String details;
 
-        public ParseResult(boolean success, List<SyntaxError> errors, String parseTree, String details) {
+        public ParseResult(boolean success, List<SyntaxError> errors, String parseTree) {
             this.success = success;
             this.errors = errors;
             this.parseTree = parseTree;
-            this.details = details;
         }
     }
 
     public ParseResult parse(String input) {
         List<SyntaxError> errors = new ArrayList<>();
-        StringBuilder details = new StringBuilder();
 
         try {
-            // Создаем лексер и парсер
+
             CharStream charStream = CharStreams.fromString(input);
             WhileGrammarLexer lexer = new WhileGrammarLexer(charStream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             WhileGrammarParser parser = new WhileGrammarParser(tokens);
 
-            // Убираем стандартные обработчики ошибок и добавляем свой
+
             parser.removeErrorListeners();
             lexer.removeErrorListeners();
 
@@ -75,71 +72,19 @@ public class ANTLRParser {
                 }
             });
 
-            // Запускаем парсинг
-            details.append("Starting ANTLR parsing...\n");
+
             ParseTree tree = parser.program();
 
-            if (errors.isEmpty()) {
-                details.append("✓ Parsing completed successfully\n");
-                details.append("Tokens processed: ").append(tokens.size()).append("\n");
-
-                // Анализируем дерево
-                analyzeParseTree(tree, parser, details);
-            } else {
-                details.append("✗ Parsing completed with ").append(errors.size()).append(" errors\n");
-            }
-
-            // Формируем строковое представление дерева
             String treeString = tree.toStringTree(parser);
 
-            return new ParseResult(errors.isEmpty(), errors, treeString, details.toString());
+            return new ParseResult(errors.isEmpty(), errors, treeString);
 
         } catch (Exception e) {
             errors.add(new SyntaxError(0, 0, "ANTLR parsing failed: " + e.getMessage()));
-            return new ParseResult(false, errors, "", "ANTLR parsing crashed: " + e.getMessage());
+            return new ParseResult(false, errors, "");
         }
     }
 
-    private void analyzeParseTree(ParseTree tree, WhileGrammarParser parser, StringBuilder details) {
-        ParseTreeWalker walker = new ParseTreeWalker();
-
-        details.append("\nParse Tree Structure:\n");
-        details.append("----------------------\n");
-
-        walker.walk(new WhileGrammarBaseListener() {
-            private int indent = 0;
-
-            private String getIndent() {
-                return "  ".repeat(indent);
-            }
-
-            @Override
-            public void enterEveryRule(ParserRuleContext ctx) {
-                String ruleName = parser.getRuleNames()[ctx.getRuleIndex()];
-                details.append(getIndent())
-                        .append("→ ")
-                        .append(ruleName)
-                        .append("\n");
-                indent++;
-            }
-
-            @Override
-            public void exitEveryRule(ParserRuleContext ctx) {
-                indent--;
-            }
-
-            @Override
-            public void visitTerminal(TerminalNode node) {
-                String tokenText = node.getText();
-                if (!tokenText.trim().isEmpty()) {
-                    details.append(getIndent())
-                            .append("• '")
-                            .append(tokenText)
-                            .append("'\n");
-                }
-            }
-        }, tree);
-    }
 
     public String parseAndFormat(String input) {
         ParseResult result = parse(input);
@@ -147,11 +92,11 @@ public class ANTLRParser {
         StringBuilder output = new StringBuilder();
 
         if (result.success) {
-            output.append(" SUCCESS: No syntax errors found\n\n");
+            output.append(" success: No syntax errors found\n\n");
         } else {
-            output.append(" ERRORS: ").append(result.errors.size()).append(" syntax errors found\n");
+            output.append(" errors: ").append(result.errors.size()).append(" syntax errors found\n");
             for (SyntaxError error : result.errors) {
-                output.append("   - ").append(error).append("\n");
+                output.append("    ").append(error).append("\n");
             }
             output.append("\n");
         }
